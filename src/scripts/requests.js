@@ -1,5 +1,5 @@
 const baseUrl = "http://localhost:3333";
-const token = localStorage.getItem("@petinfo:token");
+export const token = localStorage.getItem("@petinfo:token");
 
 const requestHeaders = {
   "Content-Type": "application/json",
@@ -28,3 +28,71 @@ export async function getAllPosts() {
 }
 
 // Desenvolva as funcionalidades de requisições aqui
+//Requisição para fazer login na página
+export const loginRequest = async (loginBody) => {
+  const tokenLogin = await fetch(`${baseUrl}/login`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(loginBody)
+  })
+    .then(async (response) => {
+      const inputEmail = document.querySelector("#Email")
+      const inputPassword = document.querySelector("#Senha")
+      const smallEmail = document.querySelector("#wrong-email")
+      const smallPassword = document.querySelector("#wrong-password")
+      const convert = await response.json()
+      localStorage.setItem("@petinfo:token", convert.token)
+      if (response.ok) {
+        console.log(response)
+        alert("Login realizado com sucesso")//mudar para toast depois
+        setTimeout(() => {
+          location.replace('./src/pages/feed.html')
+        }, 1000)
+        return convert
+      } else {
+        if (convert.message === "O email está incorreto") {
+          smallEmail.classList.remove("hidden");
+          smallPassword.classList.add("hidden");
+          inputEmail.classList.add("error");
+          inputPassword.classList.remove("error");
+        } else if (convert.message === "A senha está incorreta") {
+          smallEmail.classList.add("hidden");
+          smallPassword.classList.remove("hidden");
+          inputEmail.classList.remove("error");
+          inputPassword.classList.add("error");
+        }
+        // alert(convert.message)
+      }
+    })
+
+  return tokenLogin
+}
+
+//Requisição para fazer cadastro na página
+export const createLogin = async (userLogin) => {
+  const newUser = await fetch(`${baseUrl}/users/create`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(userLogin)
+  })
+    .then(async (response) => {
+      const responseJson = await response.json()
+      if (response.ok) {
+        console.log(response)
+        alert("Usuário cadastrado com sucesso")//mudar para toast depois
+        setTimeout(() => {
+          location.replace("../../index.html");
+        }, 1000)
+        return responseJson
+      } else {
+        alert(responseJson.message)
+      }
+    })
+  return newUser
+}
+
+
