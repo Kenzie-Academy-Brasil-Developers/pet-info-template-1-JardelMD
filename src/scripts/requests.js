@@ -1,3 +1,4 @@
+
 const baseUrl = "http://localhost:3333";
 export const token = localStorage.getItem("@petinfo:token");
 
@@ -13,7 +14,6 @@ export async function getCurrentUserInfo() {
     headers: requestHeaders,
   });
   const user = await request.json();
-
   return user;
 }
 
@@ -27,7 +27,6 @@ export async function getAllPosts() {
   return posts;
 }
 
-// Desenvolva as funcionalidades de requisições aqui
 //Requisição para fazer login na página
 export const loginRequest = async (loginBody) => {
   const tokenLogin = await fetch(`${baseUrl}/login`, {
@@ -66,7 +65,6 @@ export const loginRequest = async (loginBody) => {
         // alert(convert.message)
       }
     })
-
   return tokenLogin
 }
 
@@ -82,7 +80,6 @@ export const createLogin = async (userLogin) => {
     .then(async (response) => {
       const responseJson = await response.json()
       if (response.ok) {
-        console.log(response)
         alert("Usuário cadastrado com sucesso")//mudar para toast depois
         setTimeout(() => {
           location.replace("../../index.html");
@@ -93,6 +90,25 @@ export const createLogin = async (userLogin) => {
       }
     })
   return newUser
+}
+
+//Requisição para nova postagem (TESTE)
+export const createNewPost = async (userPost) => {
+  const post = await fetch(`${baseUrl}/posts/create`, {
+    method: 'POST',
+    headers: requestHeaders,
+    body: JSON.stringify(userPost)
+  })
+    .then(async (response) => {
+      const responseJson = await response.json()
+      if (response.ok) {
+        alert("Nova publicação feita com sucesso");
+        return responseJson;
+      } else {
+        alert(responseJson.message);
+      }
+    })
+  return post
 }
 
 

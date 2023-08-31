@@ -2,7 +2,7 @@
 import { createLogin } from "./requests.js"
 
 
-//Criando função para cadastras usuário:
+//Criando função para cadastrar usuário:
 const createUser = () => {
     const inputs = document.querySelectorAll('.text3')
     const buttonRegister = document.querySelector('#register__submit')

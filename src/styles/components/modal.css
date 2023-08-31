@@ -1,0 +1,131 @@
+/* Estilizando modal com dialog */
+dialog {
+    padding: 0;
+    width: max-content;
+    height: max-content;
+    border: none;
+    /* border: 1px solid black; */
+}
+
+dialog::backdrop {
+    background-color: rgba(30, 30, 30, 0.5)
+}
+
+/* Div principal com todo conteúdo */
+.modal__container {
+    display: flex;
+    width: 700px;
+    padding: 32px 24px;
+    flex-direction: column;
+    justify-content: center;
+    gap: 46px;
+    border: none;
+    /* border: 1px solid red; */
+    border-radius: 8px;
+    background: var(--grey-9);
+}
+
+/* Div do título do modal e botão de fechar modal */
+.modal__header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    /* border: 1px solid red; */
+    padding: 6px;
+}
+
+/* Título do modal */
+.modal__title {
+    color: var(--gray-1);
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 30px;
+    /* border: 1px solid blue; */
+}
+
+/* botão de fechar modal */
+.button__closeModal {
+    border-radius: 4px;
+    background-color: #E9ECEF;
+    cursor: pointer;
+    padding: 4px 14px;
+    color: #868E96;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 700;
+    border: none;
+    /* border: 1px solid red; */
+}
+
+/* Formulário com input e textarea */
+.form__post {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    /* border: 1px solid blue; */
+    gap: 6px;
+}
+
+/* Titulos do input e do textarea*/
+.h2__title {
+    color: var(--gray-1);
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 24px;
+}
+
+/* input */
+.input__post {
+    color: #495057;
+    border-radius: 4px;
+    border: 1px solid #D9D9D9;
+    background: #F8F9FA;
+    padding: 10px;
+}
+
+/* textarea */
+.textarea__post {
+    height: 100px;
+    color: #495057;
+    border-radius: 4px;
+    border: 1px solid #D9D9D9;
+    background: #F8F9FA;
+    padding: 10px;
+}
+
+/* div com botões "Cancelar" e "Publicar" */
+.div__buttons {
+    display: flex;
+    justify-content: flex-end;
+    /* border: 1px solid blue; */
+}
+
+/* Botão de cancelar */
+.button__CancelModal {
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 24px;
+    padding: 7px 20px;
+    border-radius: 4px;
+    border: none;
+    gap: 10px;
+    background-color: #E9ECEF;
+    color: #868E96;
+    margin-right: 1rem;
+}
+
+/* Botão de publicar */
+.button__postModal {
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 24px;
+    padding: 7px 20px;
+    border-radius: 4px;
+    border: none;
+    gap: 10px;
+    background-color: var(--brand-1);
+    color: var(--gray-9);
+}
