@@ -1,7 +1,7 @@
 import { renderAllPosts } from "./render.js";
 import { createNewPost, getCurrentUserInfo } from "./requests.js";
 
-
+//Menu que aparece as informações quando clicamos no avatar
 const showUserMenu = async () => {
   const userAction = document.querySelector(".user__image");
   const menu = document.querySelector(".user__logout");
@@ -14,28 +14,23 @@ const showUserMenu = async () => {
   });
 }
 
-function main() {
+async function main() {
   // Adiciona os eventos de click ao menu flutuante de logout
-  showUserMenu();
+  await showUserMenu();
   // Renderiza todos os posts no feed (render.js)
-  renderAllPosts();
+  await renderAllPosts();
+
+  createModalPosts();
 }
 
 main();
 
-//Evento de clique para sair da página
-const logoutPage = () => {
-  const buttonLogout = document.querySelector(".logout__button");
-  buttonLogout.addEventListener("click", () => {
-    localStorage.clear();
-    location.replace("../../index.Text")
-  })
-}
-logoutPage();
+
 
 // Criando modal via DOM
 const createModalPosts = () => {
-  const modalDialog = document.querySelector("#modalController");
+  const modalDialog = document.querySelector("#modalController"); //Captura o modal do html
+  //Criando elementos via DOM
   const divModal = document.createElement("div");
   const divHeader = document.createElement("div");
   const titleModal = document.createElement("h1");
@@ -92,6 +87,17 @@ const createModalPosts = () => {
   //Div com botões de cancelar e publicar
   divButtons.classList.add("div__buttons");
 
+  //Evento de clique no botão de "Publicar"
+  buttonPost.addEventListener('click', async (event) => {
+    event.preventDefault();
+    const userPost = {
+      title: input.value, //Pega o valor do input na chave title
+      content: textarea.value //Pega o valor do textarea na chave content
+    };
+    modalDialog.close(); //Fecha o modal
+    return await createNewPost(userPost);
+  })
+
   // Adicionar elementos filhos
   divHeader.append(titleModal, buttonClose);
   formInputs.append(titlePost, input, titleTextarea, textarea);
@@ -99,7 +105,6 @@ const createModalPosts = () => {
   divModal.append(divHeader, formInputs, divButtons);
   modalDialog.appendChild(divModal);
 }
-createModalPosts()
 
 //Criando função para abrir modal ao clicar no botão "Criar publicação"
 const newPost = () => {
@@ -132,29 +137,14 @@ const closeModal = () => {
     modalContainer.close(); //Fecha o modal
   });
 }
-newPost()
+newPost();
 
-//Criando nova publicação
-const handlePost = () => {
-  const modalContainer = document.querySelector("#modalController");
-  const input = document.querySelector('#postTitle');
-  const textarea = document.querySelector("#postContent");
-  const buttonPost = document.querySelector('#postModal');
-
-  buttonPost.addEventListener('click', (event) => {
-    event.preventDefault();
-    const userPost = {
-      title: input.value, //Pega o valor do input na chave title
-      content: textarea.value //Pega o valor do textarea na chave content
-    };
-    modalContainer.close(); //Fecha o modal
-    return createNewPost(userPost);
+//Evento de clique para sair da página
+const logoutPage = () => {
+  const buttonLogout = document.querySelector(".logout__button");
+  buttonLogout.addEventListener("click", () => {
+    localStorage.clear();
+    location.replace("../../index.html")
   })
 }
-handlePost();
-
-//Modal para abrir publicação completa no botão "Acessar Publicação"
-// const accessPostComplete = () => {
-   
-// }
-// accessPostComplete();
+logoutPage();

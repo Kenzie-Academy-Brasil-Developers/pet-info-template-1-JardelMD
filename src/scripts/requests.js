@@ -1,6 +1,6 @@
 
 const baseUrl = "http://localhost:3333";
-export const token = localStorage.getItem("@petinfo:token");
+const token = localStorage.getItem("@petinfo:token");
 
 const requestHeaders = {
   "Content-Type": "application/json",
@@ -8,7 +8,7 @@ const requestHeaders = {
 };
 
 // Informações de usuário logado
-export async function getCurrentUserInfo() {
+async function getCurrentUserInfo() {
   const request = await fetch(`${baseUrl}/users/profile`, {
     method: "GET",
     headers: requestHeaders,
@@ -18,7 +18,7 @@ export async function getCurrentUserInfo() {
 }
 
 // Listagem de posts
-export async function getAllPosts() {
+async function getAllPosts() {
   const request = await fetch(`${baseUrl}/posts`, {
     method: "GET",
     headers: requestHeaders,
@@ -28,7 +28,7 @@ export async function getAllPosts() {
 }
 
 //Requisição para fazer login na página
-export const loginRequest = async (loginBody) => {
+const loginRequest = async (loginBody) => {
   const tokenLogin = await fetch(`${baseUrl}/login`, {
     method: 'POST',
     headers: {
@@ -69,7 +69,7 @@ export const loginRequest = async (loginBody) => {
 }
 
 //Requisição para fazer cadastro na página
-export const createLogin = async (userLogin) => {
+const createLogin = async (userLogin) => {
   const newUser = await fetch(`${baseUrl}/users/create`, {
     method: 'POST',
     headers: {
@@ -92,8 +92,8 @@ export const createLogin = async (userLogin) => {
   return newUser
 }
 
-//Requisição para nova postagem (TESTE)
-export const createNewPost = async (userPost) => {
+//Requisição para nova postagem
+const createNewPost = async (userPost) => {
   const post = await fetch(`${baseUrl}/posts/create`, {
     method: 'POST',
     headers: requestHeaders,
@@ -111,4 +111,5 @@ export const createNewPost = async (userPost) => {
   return post
 }
 
+export { getCurrentUserInfo, getAllPosts, loginRequest, createLogin, createNewPost }
 

@@ -1,5 +1,5 @@
 // Desenvolva as funcionalidades de login aqui
-import { loginRequest, token } from "./requests.js";
+import { loginRequest} from "./requests.js";
 
 // const authentication = () => {
 //     if(token) {
@@ -22,7 +22,6 @@ const handleLogin = () => {
         return loginRequest(loginBody)
     })
 }
-
 handleLogin();
 
 //Redirecionando para a página de cadastro: 

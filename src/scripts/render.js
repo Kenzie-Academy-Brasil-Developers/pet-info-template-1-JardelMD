@@ -7,7 +7,7 @@ export async function renderAllPosts() {
   const posts = await getAllPosts();
 
   posts.forEach(async (post) => {
-    const postArticle = await renderPost(post, true);
+    const postArticle = await renderPost(post);
     postSection.appendChild(postArticle);
   });
 }
@@ -34,6 +34,12 @@ async function renderPost(post) {
   openButton.innerText = "Acessar publicação";
   openButton.dataset.id = post.id;
 
+  //Evento de clique para "Acessar publicação"
+  openButton.addEventListener('click', (event) => {
+    // Dessa forma você consegue acessar a propriedade data-id
+    const postID = event.target.dataset.id;
+    console.log(postID);
+  })
   postContainer.append(postHeader, postTitle, postContent, openButton);
 
   return postContainer;
