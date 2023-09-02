@@ -1,5 +1,5 @@
 import { renderAllPosts } from "./render.js";
-import { createNewPost, getCurrentUserInfo } from "./requests.js";
+import { createNewPost, getCurrentUserInfo, token } from "./requests.js";
 
 //Menu que aparece as informações quando clicamos no avatar
 const showUserMenu = async () => {
@@ -14,18 +14,25 @@ const showUserMenu = async () => {
   });
 }
 
+export const authentication = () => {
+  console.log("Entrou aqui")
+  if (!token) {
+    window.location.href = "../../index.html";
+  } 
+}
+
 async function main() {
+  authentication();
   // Adiciona os eventos de click ao menu flutuante de logout
   await showUserMenu();
   // Renderiza todos os posts no feed (render.js)
   await renderAllPosts();
 
   createModalPosts();
+  
 }
 
 main();
-
-
 
 // Criando modal via DOM
 const createModalPosts = () => {
@@ -95,6 +102,7 @@ const createModalPosts = () => {
       content: textarea.value //Pega o valor do textarea na chave content
     };
     modalDialog.close(); //Fecha o modal
+    location.replace('./feed.html'); //redireciona para a página de feed
     return await createNewPost(userPost);
   })
 
@@ -110,7 +118,6 @@ const createModalPosts = () => {
 const newPost = () => {
   const button = document.querySelector("#user__newpost");
   const modalContainer = document.querySelector("#modalController")
-
   button.addEventListener("click", () => {
     modalContainer.showModal();
 
@@ -148,3 +155,6 @@ const logoutPage = () => {
   })
 }
 logoutPage();
+
+
+

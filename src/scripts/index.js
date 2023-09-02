@@ -1,13 +1,6 @@
 // Desenvolva as funcionalidades de login aqui
 import { loginRequest} from "./requests.js";
 
-// const authentication = () => {
-//     if(token) {
-//       location.replace('./src/pages/feed.html')
-//     }
-//   }
-//   authentication()
-
 //Criando a função para login:
 const handleLogin = () => {
     const inputs = document.querySelectorAll('.text3')
@@ -33,4 +26,3 @@ const registerPage = () => {
     })
 }
 registerPage();
-

@@ -11,6 +11,7 @@ dialog::backdrop {
     background-color: rgba(30, 30, 30, 0.5)
 }
 
+/* //////MODAL PARA CRIAR PUBLICAÇÃO///// */
 /* Div principal com todo conteúdo */
 .modal__container {
     display: flex;
@@ -128,4 +129,33 @@ dialog::backdrop {
     gap: 10px;
     background-color: var(--brand-1);
     color: var(--gray-9);
+}
+
+/* ///////MODAL PARA ABRIR PUBLICAÇÃO/////// */
+.modal__public{
+    display: flex;
+    width: 700px;
+    height: 100%;
+    padding: 32px 24px;
+    flex-direction: column;
+    justify-content: center;
+    gap: 46px;
+    border: none;
+    /* border: 1px solid red; */
+    border-radius: 8px;
+    background: var(--grey-9);
+}
+
+.header__modal{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 6px;
+}
+
+.info__modal{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 16px;
 }

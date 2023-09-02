@@ -1,5 +1,6 @@
 import { getCurrentUserInfo, getAllPosts } from "./requests.js";
 
+
 // Renderiza todos os posts
 export async function renderAllPosts() {
   const postSection = document.querySelector(".posts");
@@ -10,6 +11,61 @@ export async function renderAllPosts() {
     const postArticle = await renderPost(post);
     postSection.appendChild(postArticle);
   });
+}
+
+//Criando modal para abrir posts
+const modalPosts = async (post) => {
+  const modalDialog = document.getElementById("modal__post"); //Captura o modal do feed.html
+  //Criando elementos via DOM
+  const divModal = document.createElement("div");
+  divModal.classList.add("modal__public")
+  // const divHeader = await renderPostHeader(post);
+  const divHeader = document.createElement("div");
+  divHeader.classList.add("header__modal")
+  const divNameDate = document.createElement("div");
+  divNameDate.classList.add("info__modal")
+  const img = document.createElement("img");
+  const name = document.createElement("p");
+  const divisorText = document.createElement("small");
+  const pDate = document.createElement("p");
+  const closeButton = document.createElement("button");
+  const title = document.createElement("h2");
+  const contentPost = document.createElement("p")
+
+  //img
+  img.src = post.user.avatar;
+  img.alt = post.user.username;
+  img.classList.add("post__author-image");
+  //name
+  name.innerText = post.user.username;
+  name.classList.add("post__author-name", "text4", "bolder");
+  //divisor
+  divisorText.innerText = "|";
+  divisorText.classList.add("post__date", "text4");
+  //pDate
+  pDate.innerText = handleDate(post.createdAt);
+  pDate.classList.add("post__date", "text4");
+  //Botão de fechar modal:
+  closeButton.innerText = "X";
+  closeButton.setAttribute("id", "close__modal");
+  closeButton.classList.add("button__closeModal");
+  //Título do post:
+  title.innerText = post.title;
+  title.classList.add("post__title", "text1", "bolder");
+  //Conteúdo do Post
+  contentPost.innerText = post.content;
+  contentPost.classList.add("post__content", "text3");
+
+  // Adicionar elementos filhos
+  divNameDate.append(img, name, divisorText, pDate)
+  divHeader.append(divNameDate,closeButton);
+  divModal.append(divHeader, title, contentPost);
+  modalDialog.appendChild(divModal);
+  const closeModal = document.getElementById("close__modal")
+  closeModal.addEventListener("click", () => {
+    modalDialog.close()
+    modalDialog.innerHTML = "";
+  })
 }
 
 // Renderiza um post
@@ -35,11 +91,13 @@ async function renderPost(post) {
   openButton.dataset.id = post.id;
 
   //Evento de clique para "Acessar publicação"
-  openButton.addEventListener('click', (event) => {
+  const modal = document.getElementById("modal__post")
+  openButton.addEventListener('click', () => {
     // Dessa forma você consegue acessar a propriedade data-id
-    const postID = event.target.dataset.id;
-    console.log(postID);
+    modalPosts(post);
+    modal.showModal()
   })
+
   postContainer.append(postHeader, postTitle, postContent, openButton);
 
   return postContainer;
@@ -153,3 +211,4 @@ function handleDate(timeStamp) {
 
   return `${month} de ${year}`;
 }
+

@@ -1,6 +1,6 @@
 
 const baseUrl = "http://localhost:3333";
-const token = localStorage.getItem("@petinfo:token");
+export const token = localStorage.getItem("@petinfo:token");
 
 const requestHeaders = {
   "Content-Type": "application/json",
@@ -44,13 +44,13 @@ const loginRequest = async (loginBody) => {
       const convert = await response.json()
       localStorage.setItem("@petinfo:token", convert.token)
       if (response.ok) {
-        console.log(response)
         alert("Login realizado com sucesso")//mudar para toast depois
         setTimeout(() => {
           location.replace('./src/pages/feed.html')
         }, 1000)
         return convert
       } else {
+        console.log(convert.message)
         if (convert.message === "O email está incorreto") {
           smallEmail.classList.remove("hidden");
           smallPassword.classList.add("hidden");
@@ -62,7 +62,6 @@ const loginRequest = async (loginBody) => {
           inputEmail.classList.remove("error");
           inputPassword.classList.add("error");
         }
-        // alert(convert.message)
       }
     })
   return tokenLogin
