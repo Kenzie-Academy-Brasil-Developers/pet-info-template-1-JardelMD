@@ -132,7 +132,7 @@ dialog::backdrop {
 }
 
 /* ///////MODAL PARA ABRIR PUBLICAÇÃO/////// */
-.modal__public{
+.modal__public {
     display: flex;
     width: 700px;
     height: 100%;
@@ -146,14 +146,14 @@ dialog::backdrop {
     background: var(--grey-9);
 }
 
-.header__modal{
+.header__modal {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     padding: 6px;
 }
 
-.info__modal{
+.info__modal {
     display: flex;
     flex-direction: row;
     align-items: center;

@@ -1,6 +1,5 @@
 import { getCurrentUserInfo, getAllPosts } from "./requests.js";
 
-
 // Renderiza todos os posts
 export async function renderAllPosts() {
   const postSection = document.querySelector(".posts");
@@ -15,7 +14,7 @@ export async function renderAllPosts() {
 
 //Criando modal para abrir posts
 const modalPosts = async (post) => {
-  const modalDialog = document.getElementById("modal__post"); //Captura o modal do feed.html
+  const modalDialog = document.getElementById("modal__post");
   //Criando elementos via DOM
   const divModal = document.createElement("div");
   divModal.classList.add("modal__public")
@@ -31,7 +30,6 @@ const modalPosts = async (post) => {
   const closeButton = document.createElement("button");
   const title = document.createElement("h2");
   const contentPost = document.createElement("p")
-
   //img
   img.src = post.user.avatar;
   img.alt = post.user.username;
@@ -58,7 +56,7 @@ const modalPosts = async (post) => {
 
   // Adicionar elementos filhos
   divNameDate.append(img, name, divisorText, pDate)
-  divHeader.append(divNameDate,closeButton);
+  divHeader.append(divNameDate, closeButton);
   divModal.append(divHeader, title, contentPost);
   modalDialog.appendChild(divModal);
   const closeModal = document.getElementById("close__modal")
@@ -93,7 +91,6 @@ async function renderPost(post) {
   //Evento de clique para "Acessar publicação"
   const modal = document.getElementById("modal__post")
   openButton.addEventListener('click', () => {
-    // Dessa forma você consegue acessar a propriedade data-id
     modalPosts(post);
     modal.showModal()
   })
@@ -184,7 +181,6 @@ function renderPostActions(postID) {
   deleteButton.innerText = "Excluir";
 
   actionsContainer.append(editButton, deleteButton);
-
   return actionsContainer;
 }
 

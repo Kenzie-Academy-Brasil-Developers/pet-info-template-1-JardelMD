@@ -1,5 +1,5 @@
 // Desenvolva as funcionalidades de login aqui
-import { loginRequest} from "./requests.js";
+import { loginRequest } from "./requests.js";
 
 //Criando a função para login:
 const handleLogin = () => {
@@ -22,7 +22,7 @@ const registerPage = () => {
     const button = document.querySelector("#register__button");
     button.addEventListener("click", (event) => {
         event.preventDefault();
-        location.replace("./src/pages/register.html"); //Redireciona para a página de cadastro
+        location.replace("./src/pages/register.html");
     })
 }
 registerPage();

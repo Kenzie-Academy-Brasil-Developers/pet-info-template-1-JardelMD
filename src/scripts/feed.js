@@ -5,20 +5,19 @@ import { createNewPost, getCurrentUserInfo, token } from "./requests.js";
 const showUserMenu = async () => {
   const userAction = document.querySelector(".user__image");
   const menu = document.querySelector(".user__logout");
-  const user = await getCurrentUserInfo(); //Obtem as informações do usuário logado
+  const user = await getCurrentUserInfo();
   userAction.addEventListener("click", (e) => {
-    //h2 na div que irá receber o Username
     const uniqueName = document.querySelector(".user__uniquename");
     uniqueName.innerText = `@${user.username}`
     menu.classList.toggle("hidden");
   });
 }
 
+//Função para autenticação de usuários
 export const authentication = () => {
-  console.log("Entrou aqui")
   if (!token) {
     window.location.href = "../../index.html";
-  } 
+  }
 }
 
 async function main() {
@@ -29,14 +28,12 @@ async function main() {
   await renderAllPosts();
 
   createModalPosts();
-  
 }
-
 main();
 
 // Criando modal via DOM
 const createModalPosts = () => {
-  const modalDialog = document.querySelector("#modalController"); //Captura o modal do html
+  const modalDialog = document.querySelector("#modalController");
   //Criando elementos via DOM
   const divModal = document.createElement("div");
   const divHeader = document.createElement("div");
@@ -98,11 +95,11 @@ const createModalPosts = () => {
   buttonPost.addEventListener('click', async (event) => {
     event.preventDefault();
     const userPost = {
-      title: input.value, //Pega o valor do input na chave title
-      content: textarea.value //Pega o valor do textarea na chave content
+      title: input.value,
+      content: textarea.value
     };
-    modalDialog.close(); //Fecha o modal
-    location.replace('./feed.html'); //redireciona para a página de feed
+    modalDialog.close();
+    location.replace('./feed.html');
     return await createNewPost(userPost);
   })
 
@@ -127,21 +124,21 @@ const newPost = () => {
 
 //Eventos para fechar modal nos botões de Fechar "X" e "Cancelar"
 const closeModal = () => {
-  const buttonClose = document.querySelector("#closeModal"); //Botão de fechar
-  const buttonCancel = document.querySelector("#cancelModal"); //Botão de cancelar
+  const buttonClose = document.querySelector("#closeModal");
+  const buttonCancel = document.querySelector("#cancelModal");
   const modalContainer = document.querySelector("#modalController")
   const input = document.querySelector('#postTitle')
   const textarea = document.querySelector("#postContent")
 
   buttonClose.addEventListener("click", () => {
-    input.value = "";//Limpa o input
-    textarea.value = ""; //limpa o textarea
-    modalContainer.close(); //Fecha o modal
+    input.value = "";
+    textarea.value = "";
+    modalContainer.close();
   });
   buttonCancel.addEventListener("click", () => {
-    input.value = "";//Limpa o input
-    textarea.value = ""; //limpa o textarea
-    modalContainer.close(); //Fecha o modal
+    input.value = "";
+    textarea.value = "";
+    modalContainer.close();
   });
 }
 newPost();
@@ -155,6 +152,3 @@ const logoutPage = () => {
   })
 }
 logoutPage();
-
-
-

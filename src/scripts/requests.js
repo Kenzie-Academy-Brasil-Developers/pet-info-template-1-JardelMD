@@ -44,7 +44,7 @@ const loginRequest = async (loginBody) => {
       const convert = await response.json()
       localStorage.setItem("@petinfo:token", convert.token)
       if (response.ok) {
-        alert("Login realizado com sucesso")//mudar para toast depois
+        alert("Login realizado com sucesso")
         setTimeout(() => {
           location.replace('./src/pages/feed.html')
         }, 1000)
@@ -79,7 +79,7 @@ const createLogin = async (userLogin) => {
     .then(async (response) => {
       const responseJson = await response.json()
       if (response.ok) {
-        alert("Usuário cadastrado com sucesso")//mudar para toast depois
+        alert("Usuário cadastrado com sucesso")
         setTimeout(() => {
           location.replace("../../index.html");
         }, 1000)
