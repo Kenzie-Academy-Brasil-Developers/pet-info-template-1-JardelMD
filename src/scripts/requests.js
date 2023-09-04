@@ -110,5 +110,23 @@ const createNewPost = async (userPost) => {
   return post
 }
 
-export { getCurrentUserInfo, getAllPosts, loginRequest, createLogin, createNewPost }
+//Requisição para deletar a postagem
+const deletePost = async (id) => {
+  const delet = await fetch(`${baseUrl}/posts/${id}`, {
+    method: 'DELETE',
+    headers: requestHeaders
+  })
+    .then(async (response) => {
+      const responseJson = await response.json()
+      if (response.ok) {
+        alert(responseJson.message);
+        return responseJson;
+      } else {
+        alert(responseJson.message);
+      }
+    })
+  return delet
+}
+
+export { getCurrentUserInfo, getAllPosts, loginRequest, createLogin, createNewPost, deletePost }
 
