@@ -1,4 +1,4 @@
-import { getCurrentUserInfo, getAllPosts, deletePost } from "./requests.js";
+import { getCurrentUserInfo, getAllPosts, deletePost, editPost, getPostByID } from "./requests.js";
 
 // Renderiza todos os posts
 export async function renderAllPosts() {
@@ -208,11 +208,90 @@ const modalDelete = () => {
   modalDel.appendChild(divModalDelete)
 }
 
+//Cria modal para editar post
+const modalEdit = () => {
+  const modalEd = document.getElementById("modal__edit");
+  //Criando elementos via DOM
+  const divModalEdit = document.createElement("div");
+  const divHeaderEdit = document.createElement("div");
+  const titleModalEdit = document.createElement("h1");
+  const buttonCloseEdit = document.createElement("button");
+  const formInputsEdit = document.createElement("form");
+  const titlePostEdit = document.createElement("h2");
+  const inputEdit = document.createElement("input");
+  const titleTextareaEdit = document.createElement("h2");
+  const textareaEdit = document.createElement("textarea");
+  const divButtonsEdit = document.createElement("div");
+  const buttonCancelEdit = document.createElement("button");
+  const buttonSaveEdit = document.createElement("button");
+
+  // Adicionando conteúdo e classes de estilo CSS para as consts criadas:
+  // Título do Modal
+  titleModalEdit.innerText = "Edição";
+  titleModalEdit.classList.add("modal__title");
+  //Botão de fechar modal:
+  buttonCloseEdit.innerText = "X";
+  buttonCloseEdit.setAttribute("id", "closeModalEdit");
+  buttonCloseEdit.classList.add("button__closeModal");
+
+  buttonCloseEdit.addEventListener("click", () => {
+    modalEd.innerHTML = ""
+    modalEd.close();
+  });
+
+  //Título do input:
+  titlePostEdit.innerText = "Título do post";
+  titlePostEdit.classList.add("h2__title");
+  //Input para o título do post:
+  inputEdit.setAttribute("id", "postTitleEdit");
+  inputEdit.setAttribute("name", "title");
+  inputEdit.setAttribute("type", "text");
+  inputEdit.setAttribute("placeholder", "Digite o título aqui...")
+  inputEdit.classList.add("input__post", "input__edit");
+  //Título do textarea:
+  titleTextareaEdit.innerText = "Conteúdo do post";
+  titleTextareaEdit.classList.add("h2__title");
+  //Textarea para conteúdo do post:
+  textareaEdit.setAttribute("id", "postContentEdit");
+  textareaEdit.setAttribute("name", "content");
+  textareaEdit.setAttribute("type", "text");
+  textareaEdit.setAttribute("placeholder", "Desenvolva o conteúdo do post aqui...")
+  textareaEdit.classList.add("textarea__post", "input__edit");
+  //Botão de Cancelar 
+  buttonCancelEdit.innerText = "Cancelar";
+  buttonCancelEdit.setAttribute("id", "cancelModalEdit");
+  buttonCancelEdit.classList.add("button__CancelModal");
+
+  buttonCancelEdit.addEventListener("click", () => {
+    // modalEd.innerHTML = ""
+    modalEd.close();
+  });
+
+  //Botão de Salvar Publicação 
+  buttonSaveEdit.innerText = "Salva Alterações";
+  buttonSaveEdit.setAttribute("id", "saveModal");
+  buttonSaveEdit.classList.add("button__saveModal");
+  //Div do modal
+  divModalEdit.classList.add("modal__container");
+  //Div do cabeçalho
+  divHeaderEdit.classList.add("modal__header");
+  //Form com input e textarea
+  formInputsEdit.classList.add("form__post");
+  //Div com botões de cancelar e salvar
+  divButtonsEdit.classList.add("div__buttons");
+
+  // Adicionar elementos filhos
+  divHeaderEdit.append(titleModalEdit, buttonCloseEdit);
+  formInputsEdit.append(titlePostEdit, inputEdit, titleTextareaEdit, textareaEdit);
+  divButtonsEdit.append(buttonCancelEdit, buttonSaveEdit);
+  divModalEdit.append(divHeaderEdit, formInputsEdit, divButtonsEdit);
+  modalEd.appendChild(divModalEdit);
+}
+
 // Renderiza as opções de "Editar" e "Deletar" caso o usuário seja dono do post
 function renderPostActions(postID) {
   const actionsContainer = document.createElement("div");
   actionsContainer.classList.add("post__actions");
-
   const editButton = document.createElement("button");
   editButton.classList.add(
     "post__button--edit",
@@ -223,6 +302,34 @@ function renderPostActions(postID) {
   );
   editButton.dataset.id = postID;
   editButton.innerText = "Editar";
+
+  //Evento de clique no botão de Editar:
+  const modalEd = document.getElementById("modal__edit");
+  editButton.addEventListener("click", async () => {
+    modalEd.innerHTML = ""
+    modalEdit();
+    const foundPost = await getPostByID(editButton.dataset.id)
+    const inputTitle = document.getElementById("postTitleEdit");
+    const textareaContent = document.getElementById("postContentEdit");
+    modalEd.showModal();
+    inputTitle.value = foundPost.title;
+    textareaContent.value = foundPost.content;
+
+    //Evento de clique dentro do modal para salvar alterações
+    const edit = document.getElementById("saveModal")
+    const inputsEdit = document.querySelectorAll(".input__edit");
+    const contentEdit = {};
+    edit.addEventListener("click", () => {
+      inputsEdit.forEach(input => {
+        contentEdit[input.name] = input.value;
+      })
+      editPost(editButton.dataset.id, contentEdit)
+      modalEd.close();
+      setTimeout(() => {
+        location.replace('./feed.html');
+      }, 1000)
+    })
+  })
 
   const deleteButton = document.createElement("button");
   deleteButton.classList.add(

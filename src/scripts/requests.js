@@ -27,6 +27,16 @@ async function getAllPosts() {
   return posts;
 }
 
+// Listagem de posts
+async function getPostByID(id) {
+  const request = await fetch(`${baseUrl}/posts/${id}`, {
+    method: "GET",
+    headers: requestHeaders,
+  });
+  const posts = await request.json();
+  return posts;
+}
+
 //Requisição para fazer login na página
 const loginRequest = async (loginBody) => {
   const tokenLogin = await fetch(`${baseUrl}/login`, {
@@ -128,5 +138,24 @@ const deletePost = async (id) => {
   return delet
 }
 
-export { getCurrentUserInfo, getAllPosts, loginRequest, createLogin, createNewPost, deletePost }
+//Requisição para editar a postagem
+const editPost = async (id, content) => {
+  const edit = await fetch(`${baseUrl}/posts/${id}`, {
+    method: 'PATCH',
+    headers: requestHeaders,
+    body: JSON.stringify(content)
+  })
+    .then(async (response) => {
+      const responseJson = await response.json()
+      if (response.ok) {
+        alert("Post alterado com sucesso!");
+        return responseJson;
+      } else {
+        alert(responseJson.message);
+      }
+    })
+  return edit
+}
+
+export { getCurrentUserInfo, getAllPosts, getPostByID, loginRequest, createLogin, createNewPost, deletePost, editPost }
 

@@ -31,6 +31,7 @@ dialog::backdrop {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    align-items: center;
     /* border: 1px solid red; */
     padding: 6px;
 }
@@ -49,7 +50,7 @@ dialog::backdrop {
     border-radius: 4px;
     background-color: #E9ECEF;
     cursor: pointer;
-    padding: 4px 14px;
+    padding: 12px 16px;
     color: #868E96;
     font-size: 14px;
     font-style: normal;
@@ -112,7 +113,7 @@ dialog::backdrop {
     border-radius: 4px;
     border: none;
     gap: 10px;
-    background-color: #E9ECEF;
+    background-color: var(--gray-6);
     color: #868E96;
     margin-right: 1rem;
 }
@@ -167,7 +168,7 @@ dialog::backdrop {
     padding: 10px;
     flex-direction: row;
     justify-content: space-between;
-    align-items: flex-start;
+    align-items: center;
     /* border: 1px solid red;     */
 }
 
@@ -191,4 +192,20 @@ dialog::backdrop {
     border-radius: 4px;
     border: 1px solid var(--alert-1);
     background-color: var(--alert-1);
+}
+
+/* Botão de salvar alterações */
+.button__saveModal {
+    border-radius: 4px;
+    background: var(--brand-1);
+    display: inline-flex;
+    padding: 7px 20px;
+    align-items: flex-start;
+    gap: 10px;
+    border: none;
+    color: var(--gray-9);
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 150%;
 }

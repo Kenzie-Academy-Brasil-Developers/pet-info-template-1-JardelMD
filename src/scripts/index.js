@@ -3,16 +3,25 @@ import { loginRequest } from "./requests.js";
 
 //Criando a função para login:
 const handleLogin = () => {
-    const inputs = document.querySelectorAll('.text3')
+    const input = document.getElementById('Email')
+    console.log(input)
+    const password = document.getElementById("Senha")
     const button = document.querySelector('#login__submit')
 
     button.addEventListener('click', (event) => {
         event.preventDefault()
+        let count = 0;
         const loginBody = {}
-        inputs.forEach(input => {
-            loginBody[input.name] = input.value
-        })
-        return loginRequest(loginBody)
+        if (input.value.trim() === '' || password.value.trim() === "") {
+            count++
+        }
+        loginBody[input.name] = input.value
+        loginBody[password.name] = password.value
+        if (count !== 0) {
+            alert("Por favor, preencha todos os campos necessários!")
+        }else{
+            return loginRequest(loginBody)
+        }
     })
 }
 handleLogin();

@@ -4,16 +4,30 @@ import { createLogin } from "./requests.js"
 
 //Criando função para cadastrar usuário:
 const createUser = () => {
-    const inputs = document.querySelectorAll('.text3')
+    const input = document.getElementById('user')
+    const email = document.getElementById("Email")
+    const avatar = document.getElementById("picture")
+    const password = document.getElementById("Senha")
     const buttonRegister = document.querySelector('#register__submit')
-    console.log(buttonRegister)
     buttonRegister.addEventListener('click', (event) => {
         event.preventDefault()
+        let count = 0;
         const userLogin = {}
-        inputs.forEach(input => {
-            userLogin[input.name] = input.value
-        })
-        return createLogin(userLogin);
+        if (input.value.trim() === "" ||
+            email.value.trim() === "" ||
+            avatar.value.trim() === "" ||
+            password.value.trim() === "") {
+            count++
+        }
+        userLogin[input.name] = input.value;
+        userLogin[email.name] = email.value;
+        userLogin[avatar.name] = avatar.value;
+        userLogin[password.name] = password.value;
+        if (count !== 0) {
+            alert("Por favor, preencha todos os campos necessários para realizar o cadastro!")
+        } else {
+            return createLogin(userLogin);
+        }
     })
 }
 createUser();
