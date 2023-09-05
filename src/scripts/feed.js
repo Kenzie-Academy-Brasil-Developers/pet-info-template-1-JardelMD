@@ -6,6 +6,8 @@ const showUserMenu = async () => {
   const userAction = document.querySelector(".user__image");
   const menu = document.querySelector(".user__logout");
   const user = await getCurrentUserInfo();
+  const picture = document.querySelector('.user__image')
+  picture.src = `${user.avatar}`
   userAction.addEventListener("click", (e) => {
     const uniqueName = document.querySelector(".user__uniquename");
     uniqueName.innerText = `@${user.username}`
